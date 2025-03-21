@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local STEEM Delegation Tool</title>
+    <script src="https://cdn.jsdelivr.net/npm/steem/dist/steem.min.js"></script>
+    <style>
+        /* Center-align the content */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Local STEEM Delegation Tool</h1>
+
+    <form id="delegationForm">
+        <label for="username">Your Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+
+        <label for="activeKey">Your Active Key:</label>
+        <input type="password" id="activeKey" name="activeKey" required>
+        <br>
+
+        <label for="delegatee">Delegatee Username:</label>
+        <input type="text" id="delegatee" name="delegatee" required>
+        <br>
+
+        <label for="steemAmount">Amount of STEEM to Delegate:</label>
+        <input type="number" id="steemAmount" name="steemAmount" required>
+        <br>
+
+        <button type="submit">Delegate STEEM</button>
+    </form>
+
+    <script>
+        document.getElementById('delegationForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            // Get form inputs
+            const username = document.getElementById('username').value;
+            const activeKey = document.getElementById('activeKey').value;
+            const delegatee = document.getElementById('delegatee').value;
+            const steemAmount = parseFloat(document.getElementById('steemAmount').value);
+
+            if (!username || !activeKey || !delegatee || isNaN(steemAmount)) {
+                alert('Please fill out all fields correctly.');
+                return;
+            }
+
+            try {
+                // Fetch the current STEEM to VESTS conversion rate
+                const result = await steem.api.getDynamicGlobalPropertiesAsync();
+                const totalVestingFund = parseFloat(result.total_vesting_fund_steem.split(' ')[0]);
+                const totalVestingShares = parseFloat(result.total_vesting_shares.split(' ')[0]);
+                const conversionRate = totalVestingShares / totalVestingFund;
+
+                // Convert STEEM to VESTS
+                const vestingShares = (steemAmount * conversionRate).toFixed(6) + ' VESTS';
+
+                // Construct the delegation operation
+                const operation = [
+                    'delegate_vesting_shares',
+                    {
+                        delegator: username,
+                        delegatee: delegatee,
+                        vesting_shares: vestingShares,
+                    },
+                ];
+
+                // Broadcast the transaction
+                steem.broadcast.send(
+                    { operations: [operation], extensions: [] },
+                    { active: activeKey },
+                    function (err, result) {
+                        if (err) {
+                            console.error('Error:', err);
+                            alert('Delegation failed. Check the console for details.');
+                        } else {
+                            console.log('Delegation successful:', result);
+                            alert('Delegation successful!');
+                        }
+                    }
+                );
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Check the console for details.');
+            }
+        });
+    </script>
+</body>
+</html>

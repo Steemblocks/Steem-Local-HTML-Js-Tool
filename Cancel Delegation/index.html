@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local STEEM Cancel Delegation Tool</title>
+    <script src="https://cdn.jsdelivr.net/npm/steem/dist/steem.min.js"></script>
+    <style>
+        /* Center-align the content */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #dc3545; /* Red color for cancel action */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Local STEEM Cancel Delegation Tool</h1>
+
+    <form id="returnDelegationForm">
+        <label for="username">Your Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+
+        <label for="activeKey">Your Active Key:</label>
+        <input type="password" id="activeKey" name="activeKey" required>
+        <br>
+
+        <label for="delegatee">Delegated Username:</label>
+        <input type="text" id="delegatee" name="delegatee" required>
+        <br>
+
+        <button type="submit">Cancel Delegation</button>
+    </form>
+
+    <script>
+        document.getElementById('returnDelegationForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            // Get form inputs
+            const username = document.getElementById('username').value;
+            const activeKey = document.getElementById('activeKey').value;
+            const delegatee = document.getElementById('delegatee').value;
+
+            if (!username || !activeKey || !delegatee) {
+                alert('Please fill out all fields correctly.');
+                return;
+            }
+
+            try {
+                // Construct the return delegation operation
+                const operation = [
+                    'delegate_vesting_shares',
+                    {
+                        delegator: username,
+                        delegatee: delegatee,
+                        vesting_shares: '0.000000 VESTS', // Set to 0 to cancel all delegation
+                    },
+                ];
+
+                // Broadcast the transaction
+                steem.broadcast.send(
+                    { operations: [operation], extensions: [] },
+                    { active: activeKey },
+                    function (err, result) {
+                        if (err) {
+                            console.error('Error:', err);
+                            alert('Cancel delegation failed. Check the console for details.');
+                        } else {
+                            console.log('Cancel delegation successful:', result);
+                            alert('Cancel delegation successful!');
+                        }
+                    }
+                );
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Check the console for details.');
+            }
+        });
+    </script>
+</body>
+</html>
