@@ -1,4 +1,4 @@
-# STEEM Delegation Tools
+# STEEM Local HTML Js Tool
 
 This repository contains two simple web-based tools for interacting with the STEEM blockchain:
 1. **STEEM Delegation Tool**: Allows users to delegate STEEM Power (VESTS) to another account.
