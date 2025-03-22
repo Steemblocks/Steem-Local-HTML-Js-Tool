@@ -1,6 +1,6 @@
 # STEEM Local HTML Js Tool
 
-This repository contains two simple local web-based tools for interacting with the STEEM blockchain:
+This repository contains two simple local web-based tools for interacting with the Steem blockchain:
 1. **STEEM Delegation Tool**: Allows users to delegate STEEM Power (VESTS) to another account.
 2. **STEEM Cancel Delegation Tool**: Allows users to cancel an existing delegation by setting the delegated VESTS to zero.
 
@@ -13,7 +13,7 @@ Both tools are built using HTML, JavaScript, and the `steem-js` library.
 ### STEEM Delegation Tool
 - Input your username, active key, delegatee username, and the amount of STEEM to delegate.
 - Automatically converts STEEM to VESTS using the current blockchain conversion rate.
-- Broadcasts the delegation transaction to the STEEM blockchain.
+- Broadcasts the delegation transaction to the Steem blockchain.
 
 ![image](https://github.com/user-attachments/assets/a530529c-a686-4669-9c9a-933a7157e4d3)
 
@@ -21,7 +21,7 @@ Both tools are built using HTML, JavaScript, and the `steem-js` library.
 ### STEEM Cancel Delegation Tool
 - Input your username, active key, and the delegatee username.
 - Cancels all delegated VESTS by setting the delegation amount to `0.000000 VESTS`.
-- Broadcasts the cancellation transaction to the STEEM blockchain.
+- Broadcasts the cancellation transaction to the Steem blockchain.
 
 ![image](https://github.com/user-attachments/assets/c1df38d7-cc1f-47ff-a731-7f4a3900f23a)
 
@@ -32,7 +32,7 @@ Both tools are built using HTML, JavaScript, and the `steem-js` library.
 To use these tools, you need:
 - A modern web browser.
 - A STEEM account with an active key.
-- An internet connection to interact with the STEEM blockchain.
+- An internet connection to interact with the Steem blockchain.
 
 ---
 
@@ -109,16 +109,16 @@ To debug or monitor the operations, you can use the browser's developer console.
 
 ### STEEM Delegation Tool
 - The tool calculates the equivalent VESTS for the entered STEEM amount using the current blockchain conversion rate.
-- It constructs a `delegate_vesting_shares` operation and broadcasts it to the STEEM blockchain.
+- It constructs a `delegate_vesting_shares` operation and broadcasts it to the Steem blockchain.
 
 ### STEEM Cancel Delegation Tool
 - The tool constructs a `delegate_vesting_shares` operation with `0.000000 VESTS` to cancel all delegated VESTS.
-- It broadcasts the operation to the STEEM blockchain.
+- It broadcasts the operation to the Steem blockchain.
 
 ---
 
 ## Dependencies
-- [steem-js](https://github.com/steemit/steem-js): A JavaScript library for interacting with the STEEM blockchain.
+- [steem-js](https://github.com/steemit/steem-js): A JavaScript library for interacting with the Steem blockchain.
 
 ---
 
