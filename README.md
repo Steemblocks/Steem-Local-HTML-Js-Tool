@@ -30,7 +30,6 @@ Both tools are built using HTML, JavaScript, and the `steem-js` library.
 ## Prerequisites
 
 To use these tools, you need:
-- Host the code locally on your desktop
 - A modern web browser.
 - A STEEM account with an active key.
 - An internet connection to interact with the STEEM blockchain.
