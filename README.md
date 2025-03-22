@@ -14,7 +14,7 @@ Both tools are built using HTML, JavaScript, and the `steem-js` library.
 - Input your username, active key, delegatee username, and the amount of STEEM to delegate.
 - Automatically converts STEEM to VESTS using the current blockchain conversion rate.
 - Broadcasts the delegation transaction to the STEEM blockchain.
-- 
+
 ![image](https://github.com/user-attachments/assets/a530529c-a686-4669-9c9a-933a7157e4d3)
 
 
@@ -22,7 +22,7 @@ Both tools are built using HTML, JavaScript, and the `steem-js` library.
 - Input your username, active key, and the delegatee username.
 - Cancels all delegated VESTS by setting the delegation amount to `0.000000 VESTS`.
 - Broadcasts the cancellation transaction to the STEEM blockchain.
-- 
+
 ![image](https://github.com/user-attachments/assets/c1df38d7-cc1f-47ff-a731-7f4a3900f23a)
 
 ---
