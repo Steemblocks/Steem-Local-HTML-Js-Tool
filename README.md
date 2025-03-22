@@ -39,7 +39,7 @@ To use these tools, you need:
 ## Setup
 
 1. Clone or download this repository to your local machine.
-2. Open the `index.html` file from **Delegate Steem** folder for the **STEEM Delegation Tool** and the `index.html` file from **Cancel Delegation** folder for the **STEEM Cancel Delegation Tool** in your web browser.
+2. Open the `index.html` file from **Delegate Steem** folder for the **STEEM Delegation Tool** or the `index.html` file from **Cancel Delegation** folder for the **STEEM Cancel Delegation Tool** in your web browser. 
 3. Ensure you have the `steem-js` library loaded (already included via CDN in the code).
 
 ---
@@ -67,7 +67,7 @@ The following CDN link is used to load the `steem-js` library:
 4. Wait for the transaction to be broadcasted. You will receive a success or error message.
 
 ### STEEM Cancel Delegation Tool
-1. Open the `cancel_delegation.html` file in your browser.
+1. Open the `index.html` file in your browser.
 2. Fill in the form:
    - **Your Username**: Your STEEM account username.
    - **Your Active Key**: Your STEEM account's active private key.
